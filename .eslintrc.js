@@ -1,5 +1,6 @@
 // install: eslint-plugin-import eslint-plugin-react eslint-plugin-jsx-a11y eslint-config-airbnb to active airbnb config
 module.exports = {
+    root: true,
     extends: 'airbnb',
     rules: {
         semi: ['error', 'never'], // no-use ; line end
@@ -18,4 +19,9 @@ module.exports = {
         ],
         'no-console': ['error', { allow: ['log', 'warn', 'error'] }], // allow log
     },
+    // for typescript file fix
+    parser: '@typescript-eslint/parser',
+    plugins: [
+        '@typescript-eslint',
+    ],
 }
