@@ -8,6 +8,7 @@ module.exports = {
         quotes: ['error', 'single'], // use single quote
         'array-bracket-spacing': ['error', 'never'],
         'comma-dangle': [
+            // https://github.com/wantedly/frolint/issues/31
             // use , line end
             'error',
             {
