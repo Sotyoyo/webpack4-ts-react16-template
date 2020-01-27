@@ -1,4 +1,8 @@
 // const webpack = require('webpack')
+/** TODO
+    1. import scss error in console
+*/
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -43,7 +47,7 @@ module.exports = {
                 include: paths.appSrcPath,
                 use: [
                     {
-                        loader: 'style-loader',
+                        loader: isDevEnvironment ? 'style-loader' : MiniCssExtractPlugin.loader,
                     },
                     {
                         loader: 'css-loader',
