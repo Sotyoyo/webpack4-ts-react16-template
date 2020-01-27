@@ -2,8 +2,12 @@
 module.exports = {
     root: true,
     extends: 'airbnb',
+    env: {
+        browser: true,
+        node: true,
+    },
     rules: {
-        semi: ['error', 'never'], // no-use ; line end
+        semi: ['error', 'always'], // no-use ; line end
         indent: ['error', 4], // use 4 spaces
         quotes: ['error', 'single'], // use single quote
         'array-bracket-spacing': ['error', 'never'],
@@ -24,4 +28,4 @@ module.exports = {
     // for typescript file fix
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint'],
-}
+};
