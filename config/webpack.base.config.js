@@ -12,9 +12,9 @@ const isDevEnvironment = !(process.env.NODE_ENV === 'production');
 
 module.exports = {
     mode: isDevEnvironment ? 'development' : 'production',
-    entry: './src/index.ts',
+    entry: './src/index.tsx',
     resolve: {
-        extensions: ['.ts', 'tsx', '.js', '.jsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
         alias: {
             '@': paths.appSrcPath,
         },
@@ -32,7 +32,7 @@ module.exports = {
                     {
                         loader: 'babel-loader',
                         options: {
-                            presets: ['@babel/preset-env'],
+                            presets: ['@babel/preset-env', '@babel/preset-react'],
                         },
                     },
                 ],
