@@ -62,12 +62,14 @@ module.exports = {
                 test: /\.(css|less)$/,
                 include: paths.appModulesPath,
                 use: [
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                    },
                     {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
-                            modules: true,
+                            modules: false,
                         },
                     },
                     'less-loader',
