@@ -4,5 +4,5 @@ const paths = require('./paths');
 
 module.exports = merge(base, {
     mode: 'production',
-    devtool: 'cheap-module-eval-source-map',
+    devtool: false,
 });

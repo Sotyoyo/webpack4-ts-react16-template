@@ -1,7 +1,4 @@
 // const webpack = require('webpack')
-/** TODO
-    1. import scss error in console
-*/
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
@@ -47,7 +44,7 @@ module.exports = {
                 include: paths.appSrcPath,
                 use: [
                     {
-                        loader: isDevEnvironment ? 'style-loader' : MiniCssExtractPlugin.loader,
+                        loader: MiniCssExtractPlugin.loader,
                     },
                     {
                         loader: 'css-loader',
@@ -58,6 +55,22 @@ module.exports = {
                     },
                     'sass-loader',
                     'postcss-loader',
+                ],
+            },
+            // just for antd below
+            {
+                test: /\.(css|less)$/,
+                include: paths.appModulesPath,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                            modules: true,
+                        },
+                    },
+                    'less-loader',
                 ],
             },
             {
