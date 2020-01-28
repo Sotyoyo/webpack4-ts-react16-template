@@ -6,6 +6,7 @@ const SERVER_PORT = process.env.SERVER_PORT || 8080;
 
 module.exports = merge(base, {
     mode: 'development',
+    devtool: 'cheap-module-source-map',
     devServer: {
         hot: true,
         port: SERVER_PORT,

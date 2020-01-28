@@ -35,5 +35,4 @@ module.exports = {
     // for typescript file fix
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint', 'react-hooks'],
-    include: ['src'],
 };
