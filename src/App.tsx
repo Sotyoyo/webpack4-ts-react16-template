@@ -5,7 +5,7 @@ const App: React.FC = (props: {}) => {
     console.log(props);
     return (
         <h1>
-            <Button type="danger">Hello, Webpack</Button>
+            <Button type="danger">Hello, Webpack4, Typescript & Ant-design</Button>
         </h1>
     );
 };
