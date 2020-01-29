@@ -17,6 +17,9 @@ const pluginsPublic = [
         chunkFilename: '[name].[hash:6].chunk.css',
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    new webpack.DllReferencePlugin({
+        manifest: paths.appMainFestPath,
+    }),
 ];
 
 const pluginsDev = [

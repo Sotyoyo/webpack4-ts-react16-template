@@ -9,7 +9,9 @@ module.exports = {
     appPath: resolve(),
     appSrcPath: resolve('src'),
     appDistPath: resolve('dist'),
+    appDllPath: resolve('dll'),
     appModulesPath: resolve('node_modules'),
     // file
     appHtmlPath: resolve('public/index.html'),
+    appMainFestPath: resolve('dll/mainfest.json'),
 };
