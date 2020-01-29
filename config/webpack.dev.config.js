@@ -22,5 +22,6 @@ module.exports = merge(base, {
         proxy: {
             '/dev': 'http://127.0.0.1:3000',
         },
+        writeToDisk: true,
     },
 });
