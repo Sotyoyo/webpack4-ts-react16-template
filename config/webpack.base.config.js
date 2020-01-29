@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const paths = require('./paths');
+const path = require('path');
 
 const isDevEnvironment = !(process.env.NODE_ENV === 'production');
 
@@ -13,7 +14,13 @@ const pluginsPublic = [
         template: paths.appHtmlPath,
     }),
     new CleanWebpackPlugin(),
-    new CopyWebpackPlugin([{ from: paths.appDllJsPath, to: paths.appDistPath }]),
+    new CopyWebpackPlugin([
+        { from: paths.appDllJsPath, to: paths.appDistPath },
+        {
+            from: path.resolve(paths.appModulesPath, 'antd', 'dist', 'antd.min.css'),
+            to: paths.appDistPath,
+        },
+    ]),
     new MiniCssExtractPlugin({
         filename: '[name].[hash:6].css',
         chunkFilename: '[name].[hash:6].chunk.css',
