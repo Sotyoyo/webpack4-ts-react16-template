@@ -5,11 +5,18 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "npm run dev",
         "dev": "cross-env NODE_ENV=development webpack-dev-server --config ./config/webpack.dev.config.js",
         "build:prod": "cross-env NODE_ENV=production webpack --config ./config/webpack.prod.config.js",
         "build:dll": "webpack --config ./config/webpack.dll.config.js"
     },
-    "keywords": [],
+    "keywords": [
+        "webpack4",
+        "typescript",
+        "react",
+        "project",
+        "template"
+    ],
     "author": "Sheldon",
     "license": "ISC",
     "dependencies": {
@@ -34,6 +41,7 @@
         "babel-loader": "^8.0.6",
         "babel-plugin-import": "^1.13.0",
         "clean-webpack-plugin": "^3.0.0",
+        "copy-webpack-plugin": "^5.1.1",
         "cross-env": "^7.0.0",
         "css-loader": "^3.4.2",
         "eslint": "^6.8.0",

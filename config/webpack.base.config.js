@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const paths = require('./paths');
@@ -12,6 +13,7 @@ const pluginsPublic = [
         template: paths.appHtmlPath,
     }),
     new CleanWebpackPlugin(),
+    new CopyWebpackPlugin([{ from: paths.appDllJsPath, to: paths.appDistPath }]),
     new MiniCssExtractPlugin({
         filename: '[name].[hash:6].css',
         chunkFilename: '[name].[hash:6].chunk.css',
@@ -19,6 +21,7 @@ const pluginsPublic = [
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     new webpack.DllReferencePlugin({
         manifest: paths.appMainFestPath,
+        context: __dirname,
     }),
 ];
 
@@ -84,7 +87,7 @@ module.exports = {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 2,
-                            modules: true,
+                            modules: false,
                         },
                     },
                     'sass-loader',

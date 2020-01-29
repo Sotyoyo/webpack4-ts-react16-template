@@ -14,4 +14,5 @@ module.exports = {
     // file
     appHtmlPath: resolve('public/index.html'),
     appMainFestPath: resolve('dll/mainfest.json'),
+    appDllJsPath: resolve('dll/dll.js'),
 };

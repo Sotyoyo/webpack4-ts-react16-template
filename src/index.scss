@@ -1,7 +1,9 @@
 .container {
     color: red;
     button {
-        margin: 60px auto;
+        margin: 30px;
+        margin-left: 50%;
+        transform: translateX(-50%);
     }
     h2 {
         text-align: center;
