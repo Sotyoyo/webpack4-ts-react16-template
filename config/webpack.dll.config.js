@@ -1,8 +1,9 @@
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
 const paths = require('./paths');
 
 module.exports = {
-    mode: 'none',
+    mode: 'production',
     entry: ['react', 'react-dom', 'axios', 'antd'],
     devtool: false,
     output: {
@@ -17,4 +18,8 @@ module.exports = {
             context: __dirname,
         }),
     ],
+    optimization: {
+        minimize: true,
+        minimizer: [new TerserPlugin()],
+    },
 };
