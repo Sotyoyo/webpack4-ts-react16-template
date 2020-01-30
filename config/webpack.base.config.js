@@ -8,11 +8,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const tsImportPluginFactory = require('ts-import-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const paths = require('./paths');
 const path = require('path');
 
 const isDevEnvironment = !(process.env.NODE_ENV === 'production');
-const idDllEnvironment = process.env.DLL_ENV === 'true';
+// in dev mode, we should use dll to speed up our bundle, but in production mode, we must to reduce our bundle size
+const idDllEnvironment = isDevEnvironment;
 const isDebugEnvironment = process.env.DEBUG_ENV === 'true';
 
 const pluginsPublic = [
@@ -34,6 +36,7 @@ const pluginsPublic = [
     new ForkTsCheckerWebpackPlugin({
         eslint: true,
     }),
+    new FriendlyErrorsWebpackPlugin(),
 ];
 
 const dllFiles = fs.readdirSync(paths.appDllPath);
@@ -237,7 +240,7 @@ module.exports = {
     },
     performance: {
         hints: 'warning',
-        maxEntrypointSize: 1 * 1024 * 1024, // byte
-        maxAssetSize: 3 * 1024 * 1024, // byte
+        maxEntrypointSize: 5 * 1024 * 1024, // byte
+        maxAssetSize: 10 * 1024 * 1024, // byte
     },
 };

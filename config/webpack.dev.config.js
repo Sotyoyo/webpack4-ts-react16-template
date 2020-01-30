@@ -24,5 +24,7 @@ module.exports = merge(base, {
             '/dev': 'http://127.0.0.1:3000',
         },
         writeToDisk: isDebugEnvironment,
+        // quiet: true,
+        // open: true,
     },
 });
