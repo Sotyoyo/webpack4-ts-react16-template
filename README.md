@@ -6,8 +6,6 @@
 
 > done
 
-## split js and
-
 ## dev cache
 
 ## loader cache

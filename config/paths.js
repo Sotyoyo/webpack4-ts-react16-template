@@ -13,6 +13,8 @@ module.exports = {
     appModulesPath: resolve('node_modules'),
     // file
     appHtmlPath: resolve('public/index.html'),
-    appMainFestPath: resolve('dll/mainfest.json'),
-    appDllJsPath: resolve('dll/dll.js'),
+    appVendorsMainFestPath: resolve('dll/vendors.mainfest.json'),
+    appAntdMainFestPath: resolve('dll/antd.mainfest.json'),
+    appVendorsDllJsPath: resolve('dll/vendors.dll.js'),
+    appAntdDllJsPath: resolve('dll/antd.dll.js'),
 };
