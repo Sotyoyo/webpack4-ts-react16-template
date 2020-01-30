@@ -6,11 +6,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const AddAssetHtmlWebpackPlugin = require('add-asset-html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const tsImportPluginFactory = require('ts-import-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const paths = require('./paths');
 const path = require('path');
 
 const isDevEnvironment = !(process.env.NODE_ENV === 'production');
+const idDllEnvironment = process.env.DLL_ENV === 'true';
+const isDebugEnvironment = process.env.DEBUG_ENV === 'true';
 
 const pluginsPublic = [
     new HtmlWebpackPlugin({
@@ -28,58 +31,49 @@ const pluginsPublic = [
         chunkFilename: '[name].[hash:6].chunk.css',
     }),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    // new AddAssetHtmlWebpackPlugin({
-    //     filepath: paths.appAntdDllJsPath,
-    // }),
-    // new AddAssetHtmlWebpackPlugin({
-    //     filepath: paths.appVendorsDllJsPath,
-    // }),
-    // new webpack.DllReferencePlugin({
-    //     manifest: paths.appVendorsMainFestPath,
-    // }),
-    // new webpack.DllReferencePlugin({
-    //     manifest: paths.appAntdMainFestPath,
-    // }),
     new ForkTsCheckerWebpackPlugin({
         eslint: true,
     }),
 ];
 
 const dllFiles = fs.readdirSync(paths.appDllPath);
-dllFiles.forEach((filename) => {
-    if (/\.*\.dll\.js$/.test(filename)) {
-        // console.log(filename);
-        pluginsPublic.push(
-            new AddAssetHtmlWebpackPlugin({
-                filepath: path.resolve(paths.appDllPath, filename),
-            })
-        );
-    }
-    if (/\.*\.mainfest\.json$/.test(filename)) {
-        // console.log(filename);
-        pluginsPublic.push(
-            new webpack.DllReferencePlugin({
-                manifest: path.resolve(paths.appDllPath, filename),
-            })
-        );
-    }
-});
+idDllEnvironment &&
+    dllFiles.forEach((filename) => {
+        if (/\.*\.dll\.js$/.test(filename)) {
+            pluginsPublic.push(
+                new AddAssetHtmlWebpackPlugin({
+                    filepath: path.resolve(paths.appDllPath, filename),
+                })
+            );
+        }
+        if (/\.*\.mainfest\.json$/.test(filename)) {
+            pluginsPublic.push(
+                new webpack.DllReferencePlugin({
+                    manifest: path.resolve(paths.appDllPath, filename),
+                })
+            );
+        }
+    });
 
 const pluginsDev = [
-    // new BundleAnalyzerPlugin({
-    //     analyzerMode: 'server',
-    //     analyzerHost: '127.0.0.1',
-    //     analyzerPort: 8888,
-    //     reportFilename: 'report.html',
-    //     defaultSizes: 'parsed',
-    //     openAnalyzer: true,
-    //     generateStatsFile: false,
-    //     statsFilename: 'stats.json',
-    //     statsOptions: null,
-    //     logLevel: 'info',
-    // }),
     new webpack.HotModuleReplacementPlugin(), // HMR
 ];
+
+isDebugEnvironment &&
+    pluginsDev.push(
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'server',
+            analyzerHost: '127.0.0.1',
+            analyzerPort: 8888,
+            reportFilename: 'report.html',
+            defaultSizes: 'parsed',
+            openAnalyzer: true,
+            generateStatsFile: false,
+            statsFilename: 'stats.json',
+            statsOptions: null,
+            logLevel: 'info',
+        })
+    );
 
 const pluginsProd = [new webpack.HashedModuleIdsPlugin()];
 
@@ -119,18 +113,19 @@ module.exports = {
                         loader: 'ts-loader',
                         options: {
                             transpileOnly: true,
-                            // getCustomTransformers: () => ({
-                            //     before: [
-                            //         tsImportPluginFactory({
-                            //             libraryName: 'antd',
-                            //             style: 'css',
-                            //             libraryDirectory: 'lib',
-                            //         }),
-                            //     ],
-                            // }),
-                            // compilerOptions: {
-                            //     module: 'es2015'
-                            // }
+                            getCustomTransformers: () => ({
+                                before: [
+                                    tsImportPluginFactory({
+                                        libraryName: 'antd',
+                                        style: 'css',
+                                        libraryDirectory: 'lib',
+                                    }),
+                                ],
+                            }),
+                            compilerOptions: {
+                                module: 'es2015',
+                            },
+                            logLevel: 'error',
                         },
                     },
                 ],

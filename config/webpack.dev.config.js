@@ -3,6 +3,7 @@ const base = require('./webpack.base.config.js');
 const paths = require('./paths');
 
 const SERVER_PORT = process.env.SERVER_PORT || 8080;
+const isDebugEnvironment = process.env.DEBUG_ENV === 'true';
 
 module.exports = merge(base, {
     mode: 'development',
@@ -22,6 +23,6 @@ module.exports = merge(base, {
         proxy: {
             '/dev': 'http://127.0.0.1:3000',
         },
-        writeToDisk: true,
+        writeToDisk: isDebugEnvironment,
     },
 });
