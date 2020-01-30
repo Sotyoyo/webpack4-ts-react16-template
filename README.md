@@ -4,19 +4,23 @@
 
 ## minify js
 
-> done
-
-## dev cache
+> done (terser-webpack-plugin)
 
 ## loader cache
 
-## dll plugin?
+> done (cache-loader)
+
+## dll plugin
 
 > done
 
 ## tree-shaking
 
+> that need a sideEffect config, so i decide not to use it.
+
 ## needed import
+
+> done (ts-import-plugin)
 
 ## solve emit warning
 

@@ -97,6 +97,7 @@ module.exports = {
                 test: /\.jsx?$/,
                 include: paths.appSrcPath,
                 use: [
+                    'cache-loader',
                     {
                         loader: 'babel-loader',
                         options: {
@@ -109,6 +110,7 @@ module.exports = {
                 test: /\.tsx?$/,
                 include: paths.appSrcPath,
                 use: [
+                    'cache-loader',
                     {
                         loader: 'ts-loader',
                         options: {
