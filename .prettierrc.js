@@ -34,4 +34,4 @@ module.exports = {
     htmlWhitespaceSensitivity: 'css',
     // lf for newline
     endOfLine: 'lf',
-}
+};
